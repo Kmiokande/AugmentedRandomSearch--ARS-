@@ -35,3 +35,9 @@ class Normalizer():
         obs_std = np.sqrt(self.var)
         normalization = (inputs - obs_mean) / obs_std
         return normalization
+
+
+# Construção da IA
+class Policy():
+    def __init__(self, input_size, output_size):
+        self.theta = np.zeros((output_size, input_size))
