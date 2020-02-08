@@ -28,4 +28,10 @@ class Normalizer():
         last_mean = self.mean.copy()
         self.mean += (x - self.mean) / self.n
         self.mean_diff += (x - last_mean) * (x - self.mean)
-        self.var = (self.mean_diff / self.n).clip(min=1e-2) # 0.001
+        self.var = (self.mean_diff / self.n).clip(min=1e-2)  # 0.001
+
+    def normalize(self, inputs):
+        obs_mean = self.mean
+        obs_std = np.sqrt(self.var)
+        normalization = (inputs - obs_mean) / obs_std
+        return normalization
