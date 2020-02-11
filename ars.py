@@ -77,3 +77,28 @@ def explore(env, normalizer, policy, direction=None, delta=None):
         sum_rewards += reward
         num_plays += 1
     return sum_rewards
+
+
+# Treinamento da inteligência artificial
+def training(env, policy, normalizer, hp):
+    for step in range(hp.nb_steps):
+        # Inicialização das perturbações (deltas) e as recompensas positivas e negativas
+        deltas = policy.sampleDeltas()
+        positive_rewards = [0] * hp.nb_directions
+        negative_rewards = [0] * hp.nb_directions
+
+        # Obtendo as recompensas das direções positivas
+        for k in range(hp.nb_directions):
+            positive_rewards[k] = explore(env, normalizer, policy, direction='positive', delta=deltas[k])
+
+        # Obtendo as recompensas das direções negativas
+        for k in range(hp.nb_directions):
+            negative_rewards[k] = explore(env, normalizer, policy, direction='negative', delta=deltas[k])
+
+        # Obtendo todas as recompensas positivas e negativas para computar o desvio padrão dessas recompensas
+
+        # Ordenação dos rollouts e seleção das melhores direções
+
+        # Atualização da política
+
+        # Impressão da recompensa final depois da atualização
