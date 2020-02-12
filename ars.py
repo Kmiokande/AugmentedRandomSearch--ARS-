@@ -115,3 +115,5 @@ def training(env, policy, normalizer, hp):
         policy.update(rollouts, sigma_r)
 
         # Impressão da recompensa final depois da atualização
+        reward_evaluation = explore(env, normalizer, policy)
+        print('Step: {step} Reward: {reward}'.format(step=step, reward=reward_evaluation))
