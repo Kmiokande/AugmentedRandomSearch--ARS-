@@ -1,7 +1,10 @@
 import os
 import numpy as np
+import gym
+from gym import wrappers
 
 
+# Configuração dos hiperparâmetros
 class Hp():
     def __init__(self):
         self.nb_steps = 1000
@@ -116,4 +119,28 @@ def training(env, policy, normalizer, hp):
 
         # Impressão da recompensa final depois da atualização
         reward_evaluation = explore(env, normalizer, policy)
-        print('Step: {step} Reward: {reward}'.format(step=step, reward=reward_evaluation))
+        print('Step: {step} Reward: {reward}'.format(
+            step=step, reward=reward_evaluation))
+
+
+# Execução do código principal
+def mkdir(base, name):
+    path = os.path.join(base, name)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+
+work_dir = mkdir('exp', 'brs')
+monitor_dir = mkdir(work_dir, 'monitor')
+
+hp = Hp()
+np.random.seed(hp.seed)
+env = gym.make(hp.env_name)
+env = wrappers.Monitor(env, monitor_dir, force=True)
+nb_inputs = env.observation_space.shape[0]
+nb_outputs = env.action_space.shape[0]
+policy = Policy(nb_inputs, nb_outputs)
+normalizer = Normalizer(nb_inputs)
+
+training(env, policy, normalizer,hp)
