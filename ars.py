@@ -2,6 +2,7 @@ import os
 import numpy as np
 import gym
 from gym import wrappers
+import pybullet_envs
 
 
 # Configuração dos hiperparâmetros
@@ -15,7 +16,7 @@ class Hp():
         assert self.nb_best_directions <= self.nb_directions
         self.noise = 0.03
         self.seed = 1
-        self.env_name = ''
+        self.env_name = 'HalfCheetahBulletEnv-v0'
 
 
 # Normalização dos estados
@@ -143,4 +144,4 @@ nb_outputs = env.action_space.shape[0]
 policy = Policy(nb_inputs, nb_outputs)
 normalizer = Normalizer(nb_inputs)
 
-training(env, policy, normalizer,hp)
+training(env, policy, normalizer, hp)
