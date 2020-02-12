@@ -112,5 +112,6 @@ def training(env, policy, normalizer, hp):
                     for k in order]
 
         # Atualização da política
+        policy.update(rollouts, sigma_r)
 
         # Impressão da recompensa final depois da atualização
