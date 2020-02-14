@@ -62,7 +62,7 @@ class Policy():
     def update(self, rollouts, sigma_r):
         step = np.zeros(self.theta.shape)
         for r_pos, r_neg, d in rollouts:
-            step += (r_pos + r_neg) * d
+            step += (r_pos - r_neg) * d
         self.theta += hp.learning_rate / \
             (hp.nb_best_directions * sigma_r) * step
 
